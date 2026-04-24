@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhiệm Vụ Kỷ Yếu - Level 12</title>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
     <style>
         * {
@@ -15,8 +17,8 @@
         body {
             background-color: #000;
             color: #fff;
-            /* Sử dụng font Google Sans Code */
-            font-family: 'Google Sans Code', monospace;
+            /* Đã thay đổi font chữ ở đây */
+            font-family: 'Tiny5', sans-serif;
             margin: 0;
             height: 100vh;
             display: flex;
@@ -52,9 +54,10 @@
 
         h1 {
             font-family: 'Honk', system-ui;
-            color: #f1c40f; /* Honk là color font nên có thể sẽ tự có màu, nhưng giữ nguyên cũng được */
-            font-size: 40px; /* Font Honk thường cần size lớn hơn để nổi bật */
-            /* Tăng size cho font Tiny5 */
+            color: #f1c40f;
+            /* Honk là color font nên có thể sẽ tự có màu, nhưng giữ nguyên cũng được */
+            font-size: 60px;
+            /* Font Honk thường cần size lớn hơn để nổi bật */
             text-align: center;
             border-bottom: 4px double #fff;
             padding-bottom: 20px;
@@ -94,8 +97,8 @@
         }
 
         .btn {
-            /* Sử dụng font Google Sans Code */
-            font-family: 'Google Sans Code', monospace;
+            /* Đã thay đổi font chữ ở đây */
+            font-family: 'Tiny5', sans-serif;
             background: #000;
             color: #fff;
             border: 3px solid #fff;
@@ -187,7 +190,7 @@
                 <p><strong>Mô tả:</strong> Tập hợp đồng đội tại <a href="https://maps.app.goo.gl/daa4kF9LXDSzSz2k6"
                         target="_blank" class="map-link">Trường THPT chuyên Lê Quý Đôn</a> để đánh bại con Boss <span
                         class="highlight">Lê Viết Thành Nhân</span> trước khi cấp 3 kết thúc.</p>
-                <p><strong>Thời điểm:</strong> 10:00 - 10:30 ngày 27/04/2026</p>
+                <p><strong>Thời điểm:</strong> 10:00 - 10:30 ngày 27/04</p>
                 <p><strong>Phần thưởng:</strong> Buff điểm tình bạn <span class="buff">(+999)</span></p>
                 <p><strong>Dress Code:</strong> Không cởi chuồng</p>
             </div>
@@ -218,12 +221,23 @@
 
         // Logic né chuột cho nút Từ chối
         btnDecline.addEventListener('mouseover', function () {
+            // Không nhảy nếu là trên điện thoại (màn hình <= 600px) theo yêu cầu
+            if (window.innerWidth <= 600) {
+                return;
+            }
+
+            // Cố định kích thước để không bị co rúm khi chuyển sang position fixed
+            if (!this.style.width) {
+                this.style.width = this.offsetWidth + 'px';
+                this.style.height = this.offsetHeight + 'px';
+            }
+
             // Đổi position sang fixed để nút thoát ra khỏi thẻ div
             this.style.position = 'fixed';
 
             // Tính toán khung vực an toàn để nút không bay ra ngoài màn hình
-            const maxX = window.innerWidth - this.clientWidth - 20;
-            const maxY = window.innerHeight - this.clientHeight - 20;
+            const maxX = window.innerWidth - this.offsetWidth - 20;
+            const maxY = window.innerHeight - this.offsetHeight - 20;
 
             const randomX = Math.max(10, Math.floor(Math.random() * maxX));
             const randomY = Math.max(10, Math.floor(Math.random() * maxY));
