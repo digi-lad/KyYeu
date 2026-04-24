@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhiệm Vụ Kỷ Yếu - Level 12</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            /* Đã thay đổi font chữ ở đây */
+            font-family: 'Tiny5', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Tạo lưới background phong cách retro */
+            background-image:
+                linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .dialog-box {
+            background: #000;
+            border: 4px solid #fff;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            /* Đổ bóng khối cứng đặc trưng của Pixel Art */
+            box-shadow: 10px 10px 0px #444;
+            line-height: 1.8;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #f1c40f;
+            font-size: 24px;
+            /* Tăng size cho font Tiny5 */
+            text-align: center;
+            border-bottom: 4px double #fff;
+            padding-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        p {
+            font-size: 18px;
+            /* Tăng size cho font Tiny5 */
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #e74c3c;
+        }
+
+        .buff {
+            color: #3498db;
+        }
+
+        a.map-link {
+            color: #2ecc71;
+            text-decoration: underline;
+            text-decoration-style: dashed;
+        }
+
+        a.map-link:hover {
+            color: #f1c40f;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            position: relative;
+            height: 60px;
+        }
+
+        .btn {
+            /* Đã thay đổi font chữ ở đây */
+            font-family: 'Tiny5', sans-serif;
+            background: #000;
+            color: #fff;
+            border: 3px solid #fff;
+            padding: 15px 15px;
+            font-size: 18px;
+            /* Tăng size cho font Tiny5 */
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        #btn-accept {
+            border-color: #2ecc71;
+            color: #2ecc71;
+            width: 45%;
+        }
+
+        #btn-accept:hover {
+            background: #2ecc71;
+            color: #000;
+        }
+
+        #btn-decline {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            width: 45%;
+            position: absolute;
+            right: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+            text-align: center;
+            color: #2ecc71;
+            margin-top: 30px;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Responsive cho điện thoại */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .actions {
+                flex-direction: column;
+                height: 100px;
+                align-items: center;
+            }
+
+            #btn-accept,
+            #btn-decline {
+                width: 100%;
+                position: static;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container">
+        <div id="quest-box" class="dialog-box">
+            <h1>NHIỆM VỤ: KỶ YẾU (Level 12)</h1>
+            <div class="stats">
+                <p><strong>Mô tả:</strong> Tập hợp đồng đội tại <a href="https://maps.app.goo.gl/daa4kF9LXDSzSz2k6"
+                        target="_blank" class="map-link">Trường THPT chuyên Lê Quý Đôn</a> để đánh bại con Boss <span
+                        class="highlight">Lê Viết Thành Nhân</span> trước khi cấp 3 kết thúc.</p>
+                <p><strong>Thời điểm:</strong> 10:00 - 10:30 ngày 27/04/2026</p>
+                <p><strong>Phần thưởng:</strong> Buff điểm tình bạn <span class="buff">(+999)</span></p>
+                <p><strong>Dress Code:</strong> Không cởi chuồng</p>
+            </div>
+            <div class="actions">
+                <button id="btn-accept" class="btn">CHẤP NHẬN NHIỆM VỤ</button>
+                <button id="btn-decline" class="btn">TỪ CHỐI</button>
+            </div>
+        </div>
+
+        <div id="success-box" class="dialog-box hidden">
+            <h1>[ NHIỆM VỤ ĐÃ NHẬN ]</h1>
+            <p style="text-align: center; line-height: 2;">Nhớ đến nha!<br> Không cần mang quàaaa!</p>
+            <p class="blink">>>> Đã lưu tiến trình... <<<< /p>
+        </div>
+    </div>
+
+    <script>
+        const btnAccept = document.getElementById('btn-accept');
+        const btnDecline = document.getElementById('btn-decline');
+        const questBox = document.getElementById('quest-box');
+        const successBox = document.getElementById('success-box');
+
+        // Logic khi bấm Chấp nhận
+        btnAccept.addEventListener('click', () => {
+            questBox.classList.add('hidden');
+            successBox.classList.remove('hidden');
+        });
+
+        // Logic né chuột cho nút Từ chối
+        btnDecline.addEventListener('mouseover', function () {
+            // Đổi position sang fixed để nút thoát ra khỏi thẻ div
+            this.style.position = 'fixed';
+
+            // Tính toán khung vực an toàn để nút không bay ra ngoài màn hình
+            const maxX = window.innerWidth - this.clientWidth - 20;
+            const maxY = window.innerHeight - this.clientHeight - 20;
+
+            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+            this.style.left = randomX + 'px';
+            this.style.top = randomY + 'px';
+        });
+
+        // Đề phòng trường hợp ai đó lanh tay bấm trúng hoặc dùng điện thoại chạm vào
+        btnDecline.addEventListener('click', function (e) {
+            e.preventDefault();
+            alert("Có cứt");
+        });
+    </script>
+</body>
+
+</html>
