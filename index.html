@@ -64,6 +64,14 @@
             line-height: 1.5;
         }
 
+        /* Đảm bảo dòng NHIỆM VỤ ĐÃ NHẬN không bị rớt dòng trên desktop */
+        @media (min-width: 601px) {
+            #success-box h1 {
+                white-space: nowrap;
+                font-size: 70px; /* Thu nhỏ chút xíu từ 85px để fit đủ 800px box */
+            }
+        }
+
         p {
             font-size: 18px;
             /* Tăng size cho font Tiny5 */
